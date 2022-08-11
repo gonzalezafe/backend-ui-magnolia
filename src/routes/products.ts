@@ -102,7 +102,7 @@ router.post('/', [
   check('name')
     .exists()
     .isString()
-], (req: Request, res: Response) => {
+], (req: Request, res: Response, next: NextFunction) => {
   const product = req.body
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
@@ -117,8 +117,12 @@ router.post('/', [
 
   void newProduct.save().then(savedProduct => {
     res.json(savedProduct)
-  })
+  }).catch(err => next(err))
   return undefined
+})
+
+router.use((_req: Request, res: Response, _next: NextFunction) => {
+  res.status(404).end()
 })
 
 router.use((error: Error, _req: Request, res: Response, _next: NextFunction) => {

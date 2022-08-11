@@ -16,8 +16,16 @@ export interface ProductEntry {
   description: string
 }
 
+export interface UserEntry {
+  id: number
+  username: string
+  name: string
+  passwordHash: string
+}
+
 export type NewProductEntry = Omit<ProductEntry, 'id'>
 
+export type NewUserEntry = Omit<UserEntry, 'id'>
 // export type NonSensitiveInfoDiaryEntry = Pick<DiaryEntry, 'id' | 'date' | 'weather' | 'visibility'>
 export type NonSensitiveInfoDiaryEntry = Omit<DiaryEntry, 'comment'>
 export type NewDiaryEntry = Omit<DiaryEntry, 'id'>
